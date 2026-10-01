@@ -1,0 +1,2 @@
+-- Datos de desarrollo. Se cargan con `supabase db reset`.
+-- Las 10 misiones de ejemplo se añaden en la Fase 2.
