@@ -16,21 +16,38 @@
     "lint": "npm run lint -w @fachapp/web",
     "typecheck": "npm run typecheck -w @fachapp/web",
     "test": "npm run test -w @fachapp/web",
+    "e2e": "npm run e2e -w @fachapp/web",
+    "docs:screens": "npm run docs:screens -w @fachapp/web",
+    "icons": "node scripts/icons.mjs",
+    "sb:setup": "node scripts/sb.mjs setup",
+    "sb:start": "node scripts/sb.mjs start",
+    "sb:stop": "node scripts/sb.mjs stop",
+    "db:migrate": "node scripts/sb.mjs migrate",
+    "db:seed": "node scripts/sb.mjs seed",
+    "db:reset": "node scripts/sb.mjs reset",
+    "db:types": "node scripts/sb.mjs types",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "functions:check": "node scripts/sb.mjs check-functions",
+    "cloud:migrate": "node scripts/sb.mjs cloud-migrate --seed",
+    "cloud:functions": "node scripts/sb.mjs cloud-functions"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+    "apps/web/**/*.{ts,tsx}": [
+      "eslint --fix --no-warn-ignored --max-warnings=0",
+      "prettier --write --ignore-unknown"
     ],
-    "*.{js,json,md,css,yml,yaml}": [
-      "prettier --write"
+    "!(apps/web)/**/*.{ts,tsx}": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{js,mjs,json,md,css,yml,yaml}": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "devDependencies": {
     "husky": "^9.1.7",
+    "lighthouse": "^12.8.2",
     "lint-staged": "^16.4.0",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1"

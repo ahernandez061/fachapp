@@ -8,8 +8,6 @@ test-results/
 blob-report/
 supabase/.branches/
 supabase/.temp/
-apps/web/android/
-apps/web/ios/
 *.min.*
 *.lock
 package-lock.json
@@ -21,3 +19,7 @@ package-lock.json
 *.ico
 .env
 .env.*
+apps/web/android/app/build/
+apps/web/ios/App/Pods/
+apps/web/assets/
+supabase/docker/volumes/db/data/

@@ -7,3 +7,8 @@ playwright-report
 test-results
 supabase/.temp
 apps/web/src/lib/database.types.ts
+apps/web/android/
+apps/web/ios/
+apps/web/src/lib/database.types.ts
+supabase/docker/volumes/
+supabase/functions/main/

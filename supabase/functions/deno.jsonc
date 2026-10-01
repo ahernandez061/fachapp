@@ -1,0 +1,6 @@
+{
+  // Import map común para las Edge Functions (lo usa también el runtime local de Docker).
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2",
+  },
+}

@@ -23,9 +23,7 @@ supabase/.branches/
 supabase/.temp/
 supabase/functions/.env
 
-# Capacitor (fase 7)
-apps/web/android/
-apps/web/ios/
+# Capacitor (fase 7): los proyectos android/ e ios/ se versionan; sus builds los ignoran sus propios .gitignore
 
 # Editor / SO
 .DS_Store
@@ -34,3 +32,8 @@ Thumbs.db
 !.vscode/extensions.json
 .idea/
 *.log
+lighthouse-report.html
+
+# Generados por Docker / Deno en local
+supabase/functions/main/
+supabase/functions/deno.lock
