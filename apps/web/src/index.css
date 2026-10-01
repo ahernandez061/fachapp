@@ -12,7 +12,7 @@
   --card-foreground: oklch(0.216 0.006 56);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.216 0.006 56);
-  --primary: oklch(0.553 0.195 38.4);
+  --primary: oklch(0.49 0.18 36);
   --primary-foreground: oklch(0.985 0.002 75);
   --secondary: oklch(0.97 0.001 106);
   --secondary-foreground: oklch(0.268 0.007 34);
@@ -23,7 +23,7 @@
   --destructive: oklch(0.577 0.245 27.3);
   --border: oklch(0.923 0.003 48.7);
   --input: oklch(0.923 0.003 48.7);
-  --ring: oklch(0.553 0.195 38.4);
+  --ring: oklch(0.49 0.18 36);
 }
 
 .dark {
@@ -89,5 +89,35 @@
       'Segoe UI',
       Roboto,
       sans-serif;
+  }
+}
+
+/* Corazón del doble toque (me gusta) */
+@keyframes heart-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  45% {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

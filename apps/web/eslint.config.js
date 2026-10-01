@@ -6,7 +6,18 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'dev-dist', 'coverage', 'src/lib/database.types.ts'] },
+  {
+    ignores: [
+      'dist',
+      'dev-dist',
+      'coverage',
+      'android',
+      'ios',
+      'test-results',
+      'playwright-report',
+      'src/lib/database.types.ts',
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

@@ -26,7 +26,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"], "@shared/*": ["../../supabase/functions/_shared/*"] }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "../../supabase/functions/_shared/rules.ts",
+    "../../supabase/functions/_shared/rules.test.ts"
+  ]
 }
