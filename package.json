@@ -1,0 +1,38 @@
+{
+  "name": "fachapp",
+  "private": true,
+  "version": "0.0.0",
+  "description": "FachApp — red social de misiones (PWA) enfocada en España",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @fachapp/web",
+    "build": "npm run build -w @fachapp/web",
+    "preview": "npm run preview -w @fachapp/web",
+    "lint": "npm run lint -w @fachapp/web",
+    "typecheck": "npm run typecheck -w @fachapp/web",
+    "test": "npm run test -w @fachapp/web",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.8.1"
+  }
+}

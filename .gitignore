@@ -1,0 +1,36 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+dev-dist/
+coverage/
+*.tsbuildinfo
+
+# Tests E2E
+playwright-report/
+test-results/
+blob-report/
+
+# Entorno (nunca subir secretos)
+.env
+.env.*
+!.env.example
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+supabase/functions/.env
+
+# Capacitor (fase 7)
+apps/web/android/
+apps/web/ios/
+
+# Editor / SO
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log
