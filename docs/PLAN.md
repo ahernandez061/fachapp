@@ -1,121 +1,105 @@
 # Plan de desarrollo de FachApp
 
 Cada fase termina con: compila, `lint` sin errores, tests en verde y README actualizado.
-No se empieza una fase sin confirmación.
 
-| Fase                     | Estado                    |
-| ------------------------ | ------------------------- |
-| 0 — Setup                | ✅ Hecha                  |
-| 1 — Auth y perfiles      | ⏳ Pendiente de confirmar |
-| 2 — Misiones sin X       | —                         |
-| 3 — Integración X        | —                         |
-| 4 — Red social           | —                         |
-| 5 — Gamificación         | —                         |
-| 6 — Calidad y despliegue | —                         |
-| 7 — Móvil (Capacitor)    | —                         |
+| Fase                     | Estado                                                                               |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| 0 — Setup                | ✅                                                                                   |
+| 1 — Auth y perfiles      | ✅                                                                                   |
+| 2 — Misiones sin X       | ✅                                                                                   |
+| 3 — Integración X        | ✅ (probada en modo mock; falta la app real de developer.x.com)                      |
+| 4 — Red social           | ✅                                                                                   |
+| 5 — Gamificación         | ✅                                                                                   |
+| 6 — Calidad y despliegue | ✅ (falta activar Pages y los secrets: ver README)                                   |
+| 7 — Móvil (Capacitor)    | ✅ APK Android compilado; falta Firebase, firma para Google Play y build iOS (macOS) |
+
+Verificación (1 oct 2026): 72 tests unitarios, 5 Edge Functions sin errores de tipos (`deno check`), APK Android compilado, 13 E2E (Playwright) incluidos accesibilidad WCAG AA con axe, Lighthouse móvil **94 / 96 / 100 / 100** (rendimiento / accesibilidad / buenas prácticas / SEO).
 
 ---
 
 ## Fase 0 — Setup ✅
 
-- Monorepo con **npm workspaces** (`apps/web`), Node 22.
-- Vite + React 19 + TypeScript estricto, alias `@/`.
-- Tailwind CSS v4 + shadcn/ui (`components.json`, estilo _new-york_, base _stone_, primario rojo-anaranjado), modo claro/oscuro/sistema con Zustand.
-- React Router con `createHashRouter`, layout mobile-first con barra inferior (Feed · Misiones · Subir · Ranking · Perfil) y páginas vacías con estados vacíos.
-- TanStack Query, cliente Supabase (PKCE), utilidades `es-ES` / `Europe/Madrid`.
-- vite-plugin-pwa (manifest + service worker), `base: '/fachapp/'`.
-- ESLint (flat config) + Prettier (+ plugin Tailwind) + Husky + lint-staged.
-- Vitest + Testing Library (tests de i18n, tema y navegación).
-- `supabase/` (config, migrations, functions, seed) y workflow `ci.yml`.
+Monorepo npm workspaces, Vite + React 19 + TS estricto, Tailwind v4 + shadcn/ui, ESLint + Prettier + Husky, Vitest, `supabase/`, CI.
 
-## Fase 1 — Auth y perfiles
+## Fase 1 — Auth y perfiles ✅
 
-**BD (migración `0001_profiles.sql`)**
+- Migración `…0100_profiles`: `provincias` (52 + Ceuta y Melilla), `profiles` (público), `profile_private` (fecha de nacimiento y consentimientos, solo el dueño), trigger de alta, protección de columnas (`is_admin`, `x_connected`…), RPC `complete_onboarding` (valida **≥ 14 años** en servidor) y `username_available`, bucket `avatars`.
+- Pantallas: bienvenida (3 pasos), entrar (contraseña, enlace mágico, Google, X), registro, recuperar/nueva contraseña, onboarding, perfil propio/ajeno, editar perfil con avatar (recorte + WebP), páginas legales.
+- Guardas `RequireAuth` / `RequireOnboarded` / `RequireAdmin` / `RedirectIfAuthed`.
 
-- Tabla `profiles` (id → `auth.users`, `username` único con check `^[a-z0-9_]{3,20}$`, `display_name`, `avatar_url`, `bio` ≤ 160, `provincia` (enum/check con las 52 provincias + Ceuta/Melilla), `birthdate`, `x_connected`, `is_admin`, `created_at`).
-- Trigger `on_auth_user_created` que crea el perfil vacío.
-- RLS: lectura pública de perfiles; `update` solo el propio usuario; `is_admin` no editable por el usuario.
-- Bucket `avatars` con políticas (cada usuario solo escribe en su carpeta `uid/`).
-- `supabase gen types` → `src/lib/database.types.ts` y cliente tipado.
+## Fase 2 — Misiones sin X ✅
 
-**Frontend**
+- Migración `…0200_missions`: `missions`, `mission_attempts` (único por usuario+misión), RPC `submit_attempt` y `review_attempt`, buckets `proofs` (privado, URLs firmadas) y `covers`.
+- Listado con búsqueda y filtros (estado, categoría, dificultad, verificación), detalle con progreso, subida (cámara/galería → recorte → WebP), panel admin (validar pruebas, CRUD de misiones con editor de reglas validado).
+- Seed: 10 misiones (3 `x_auto`, 6 `photo`, 1 `manual`), 7 usuarios demo con actividad.
 
-- Pantallas: bienvenida/onboarding (3 slides), login, registro, recuperar contraseña.
-- Login con email+contraseña, magic link, **Google** y **X (OAuth 2.0)** vía Supabase Auth.
-- Formulario "Completa tu perfil" (react-hook-form + zod): username (comprobación de disponibilidad), nombre, provincia, fecha de nacimiento → **bloqueo < 14 años** (LOPDGDD), aceptación de normas y privacidad.
-- Store de sesión (Zustand) + `RequireAuth` / `RequireProfile` para proteger rutas.
-- Página de perfil propio y ajeno (`/u/:username`), editar perfil, subir avatar (compresión + WebP).
-- Páginas legales: privacidad, términos, normas de comunidad.
+## Fase 3 — Integración X ✅
 
-**Tests**: esquemas zod (edad, username), guardas de rutas, formulario de perfil.
+- Migración `…0300_x_integration`: `x_accounts` (tokens cifrados), `x_oauth_states`, `x_api_calls` (caché + límite). Sin privilegios para `anon`/`authenticated`.
+- Edge Functions: `x-oauth-start` (exige consentimiento, PKCE), `x-oauth-callback`, `x-verify` (caché 15 min, límite diario configurable, refresco de token), `x-disconnect` (revoca y borra).
+- `_shared/rules.ts`: evaluador puro de `post_with_hashtag`, `followers_min`, `post_count` con tests; lo reutiliza el frontend para describir y validar reglas.
+- Modo mock determinista (`X_MOCK=true`).
 
-## Fase 2 — Misiones sin X
+## Fase 4 — Red social ✅
 
-**BD**: `missions`, `mission_attempts` (único por usuario+misión activa), enums `verification_type` y `attempt_status`; bucket `proofs` (privado, URLs firmadas). RLS: misiones activas legibles por todos; intentos legibles por su dueño y admins; solo admins validan. Función `submit_photo_attempt`. Seed con **10 misiones** (mezcla de `photo`, `manual` y `x_auto`) con portadas de Picsum.
+- Migración `…0400_social`: `posts`, `follows`, `likes`, `comments`, `blocks`, `reports`, `notifications`, `banned_words` + triggers de filtro ofensivo, post automático al completar misión, notificaciones (follow, like, comentario, misión validada/rechazada), Realtime, vista `post_feed` y RPC `get_feed` paginado.
+- Feed Siguiendo/Descubrir con scroll infinito, likes optimistas, comentarios, búsqueda (pg_trgm), seguidores/seguidos, reportar, bloquear, notificaciones en tiempo real con contador.
 
-**Frontend**
+## Fase 5 — Gamificación ✅
 
-- Listado de misiones con filtros (categoría, dificultad, tipo, estado) y skeletons.
-- Detalle con progreso, reglas en lenguaje natural, fechas, botón "Subir foto" / "Verificar".
-- Flujo de subida: cámara o galería, recorte (`react-easy-crop`), compresión `browser-image-compression` → WebP, texto opcional.
-- **Panel admin** (`/admin`, solo `is_admin`): CRUD de misiones (editor de `rules` JSON validado con zod), cola de fotos pendientes (aprobar/rechazar con motivo).
+- Migración `…0500_gamification`: niveles (`level_for_points`), `badges` + `user_badges` (8 insignias otorgadas por triggers), vista `leaderboard`, RPC `get_leaderboard` (global, semanal lunes-domingo en hora de Madrid, amigos, provincia) y `get_profile_stats`.
+- Perfil con nivel y progreso, insignias SVG propias, cuadrícula de fotos y misiones completadas; ranking con podio y posición propia fija.
 
-**Tests**: esquema de `rules`, componente de filtros, utilidades de imagen (mock).
+## Fase 6 — Calidad y despliegue ✅
 
-## Fase 3 — Integración X
+- Migración `…0600_account`: `export_my_data()` y `delete_my_account()`.
+- Ajustes: cuenta, cambiar contraseña, X, tema, bloqueados, exportar datos, borrar cuenta.
+- Playwright: auth, misiones con foto + validación de admin, misión X mock, social, RGPD, accesibilidad (axe) y capturas (`docs/capturas`).
+- Code splitting por ruta, iconos PWA PNG/maskable, Lighthouse > 90.
+- `ci.yml` (formato, lint, tests, build y E2E con Supabase en Docker) y `deploy.yml` (GitHub Pages).
 
-- Conexión de X **separada del login** con pantalla de **consentimiento RGPD** (qué datos se leen, para qué, cómo revocar). Scopes mínimos: `tweet.read users.read offline.access`.
-- Edge Functions (Deno):
-  - `x-oauth-start` → genera `state` + PKCE y devuelve la URL de autorización.
-  - `x-oauth-callback` → intercambia el código, **cifra tokens (AES-GCM)** y guarda en `x_accounts` (RLS sin acceso desde cliente; solo `service_role`).
-  - `x-verify` → carga misión + token (refresca si caduca), consulta X API v2, evalúa la regla y actualiza `mission_attempts`.
-  - `x-disconnect` → revoca token y borra la fila.
-- **Evaluador de reglas** puro y compartido (`supabase/functions/_shared/rules/`): `post_with_hashtag`, `followers_min`, `post_count`; extensible por registro de tipos. Tests unitarios por tipo y casos límite (ventanas temporales en `Europe/Madrid`).
-- **Caché + rate limit**: tabla `x_api_calls` (máx. N verificaciones/usuario/hora y caché de respuestas 15 min).
-- **Modo mock** (`X_MOCK=true` / `VITE_X_MOCK=true`): cliente X falso con fixtures deterministas.
+## Fase 7 — Móvil ✅
 
-## Fase 4 — Red social
+Hecho:
 
-- BD: `posts` (se crea automáticamente al verificar una misión, opcionalmente con texto/fotos), `follows`, `likes`, `comments`, `blocks`, `reports`, `notifications`. Triggers que generan notificaciones (nuevo seguidor, like, comentario, misión validada/rechazada).
-- Feed con pestañas **Siguiendo** / **Descubrir**, paginación infinita (`useInfiniteQuery`), likes optimistas, comentarios.
-- Búsqueda de usuarios (por username/nombre, índice `pg_trgm`) y seguir/dejar de seguir.
-- Notificaciones en tiempo real (Supabase Realtime) con contador en la barra.
-- Moderación: reportar post/comentario/usuario, bloquear, **filtro de lenguaje ofensivo** (lista en BD + check en cliente y en trigger), cola de reportes en el panel admin.
+- `capacitor.config.ts`, proyectos `android/` e `ios/`, build nativo con rutas relativas (`--mode native`).
+- Cámara nativa (`@capacitor/camera`) en el selector de fotos, permisos de cámara/galería/notificaciones.
+- OAuth nativo: navegador del sistema + deep link `es.fachapp.app://auth`.
+- Registro de dispositivo para push → tabla `push_tokens` (migración `…0700`).
+- Iconos y splash generados con `@capacitor/assets`.
+- Push completo: migración `…0800_push_dispatch` (trigger + pg_net + Vault) → Edge Function `send-push` (FCM HTTP v1, borra tokens caducados, modo mock sin Firebase). Al tocar la notificación se abre la pantalla correspondiente.
+- APK de depuración compilado en Docker (`npm run android:apk -w @fachapp/web`, JDK 21 + Android SDK 36).
 
-## Fase 5 — Gamificación
+Pendiente (requiere cuentas o un Mac):
 
-- Puntos por misión verificada (en BD, no en cliente), **niveles** (curva de puntos) e **insignias** (tabla `badges` + `user_badges`, iconos SVG propios, otorgadas por triggers).
-- Vista `leaderboard` + vistas/RPC: global, semanal (semana lunes-domingo en `Europe/Madrid`), amigos y por provincia.
-- Pantalla de ranking con pestañas, posición propia fija y perfil con insignias, nivel y cuadrícula de fotos.
+- Firebase: `google-services.json` y secreto `FCM_SERVICE_ACCOUNT` (y clave APNs para iOS).
+- Firmar el AAB para Google Play (keystore) y compilar iOS en macOS con Xcode.
 
-## Fase 6 — Calidad y despliegue
+## Extra — Más red social y humor ✅
 
-- Ajustes: cuenta, desconectar X, privacidad (perfil privado), **exportar datos (JSON)** y **borrar cuenta** (Edge Function `delete-account`).
-- Playwright E2E (login mock, completar misión, seguir, ranking) + **capturas** automáticas para `docs/`.
-- Accesibilidad WCAG AA (axe en tests), Lighthouse > 90 (PWA, rendimiento, a11y, SEO), iconos PWA PNG.
-- `deploy.yml`: push a `main` → lint, test, build con `VITE_SUPABASE_*` desde GitHub Secrets → `actions/deploy-pages`.
-- Diagramas Mermaid completos y guía de configuración manual en el README.
-- Banner de cookies solo si se añade analítica.
+- Migración `…0900_social_plus`: `missions.featured` (Reto de la semana), `posts.hashtags` (columna generada + índice GIN), RPC `get_posts_by_tag`, `get_trending_posts`, `get_trending_hashtags`, 4 insignias sociales (Paparazzi, Influencer de barrio, Tertuliano, Croquetero).
+- 14 retos con humor y de temporada (otoño 2026) en `seed.sql` y `seed-production.sql`.
+- Publicaciones con hasta 4 fotos (carrusel), doble toque = me gusta, visor a pantalla completa, galería por perfil, #hashtags y @menciones enlazados, pantalla Explorar y página por hashtag.
+- Cuentas demo `usuario@` / `admin@fachapp.local` con botones de acceso rápido (solo local) y pestaña Usuarios en el panel de admin.
 
-## Fase 7 — Móvil
+## Extra — España, validación comunitaria y premios ✅
 
-- Capacitor (Android/iOS) envolviendo `apps/web/dist`, cambiando a `base: './'` en builds nativas.
-- Iconos y splash (`@capacitor/assets`), cámara nativa (`@capacitor/camera`), push (`@capacitor/push-notifications` + FCM/APNs), deep links para OAuth.
-- Builds de Android (Gradle) e iOS (Xcode) y guía de publicación.
+- Todas las misiones con temática española (31), generadas desde `scripts/missions-data.mjs` para `seed.sql` y `seed-production.sql`. Reto de la semana: foto con la bandera.
+- Migración `…1000_community_validation`: `attempt_votes`, `vote_attempt()` (5 a favor → superado, 10 en contra → fallido), `get_attempts_to_validate()` (al azar, sin las propias ni bloqueados), recuentos públicos, insignia Árbitro. Pantalla **Validar retos**.
+- Migración `…1100_rewards`: catálogo de premios (temas, marcos, títulos, insignias), saldo canjeable independiente del ranking, `buy_reward()` y `equip_reward()`. Pantalla **Premios**.
+- Admins: botón "Nuevo reto" en Misiones y subida de foto de portada.
+- Tests: 86 unitarios y 25 E2E (incluye votación de 5 usuarios, premios y creación de retos).
 
 ---
 
-## Decisiones tomadas en la Fase 0 (revisables)
+## Decisiones tomadas (revisables)
 
-- **npm workspaces** en lugar de pnpm (pnpm no está instalado en el equipo; cambiar es trivial).
-- **Tailwind v4** (configuración en CSS, sin `tailwind.config.js`), que es lo que usa shadcn/ui actualmente.
-- `supabase/config.toml` escrito a mano: el CLI de Supabase vía `npx` falla en este equipo con `spawn EPERM` (probablemente antivirus/política). Ver README.
-- Colores provisionales inspirados en la bandera (rojo/amarillo) para el logo y el primario.
-
-## Preguntas abiertas
-
-1. **Nombre "FachApp"**: ¿definitivo? Afecta al logo, al dominio y a la revisión en las tiendas de apps.
-2. **Login con X**: ¿quieres X como método de _login_ además de como _conexión_ para misiones, o solo conexión? (Recomiendo ambos, pero la conexión para misiones con su consentimiento propio.)
-3. **Perfiles privados**: ¿hay cuentas privadas (seguir requiere aprobación) o todo es público?
-4. **Coste de la API de X**: ¿tienes ya plan/créditos en developer.x.com? Define cuántas verificaciones por usuario/día quieres permitir.
-5. **Provincias**: ¿52 provincias o también por comunidad autónoma en el ranking?
+- **npm workspaces** (pnpm no está instalado en el equipo).
+- **Supabase local con Docker** (`supabase/docker` + `scripts/sb.mjs`) porque el antivirus bloquea el CLI. Las migraciones son compatibles con `supabase db push`.
+- **Puerto 5180** para no chocar con otros proyectos Vite.
+- **X para login y para misiones**, pero la lectura para misiones pide **consentimiento aparte** y se puede desconectar sin perder la cuenta.
+- **Perfiles públicos** (sin cuentas privadas). La privacidad se controla con bloqueos y no mostrando la fecha de nacimiento.
+- **Límite de X**: 10 verificaciones reales por usuario y día + caché de 15 min (`X_DAILY_LIMIT`).
+- **Ranking por provincia** (la tabla `provincias` ya guarda la comunidad autónoma si se quiere añadir).
+- Misiones `x_auto` no cumplidas se guardan como `rejected` con el progreso; se pueden reintentar.
+- Textos legales provisionales: revisar con un profesional.
