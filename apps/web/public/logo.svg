@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FachApp">
+  <rect width="64" height="64" rx="16" fill="#c2410c"/>
+  <rect x="0" y="22" width="64" height="20" fill="#facc15"/>
+  <circle cx="32" cy="32" r="15" fill="#fff"/>
+  <circle cx="32" cy="32" r="10" fill="none" stroke="#c2410c" stroke-width="3"/>
+  <circle cx="32" cy="32" r="4" fill="#c2410c"/>
+  <path d="M32 12v8M32 44v8M12 32h8M44 32h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+</svg>

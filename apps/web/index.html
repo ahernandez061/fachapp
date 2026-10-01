@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es-ES">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/fachapp/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="FachApp: completa misiones, compártelas y sube en el ranking."
+    />
+    <meta name="theme-color" content="#c2410c" />
+    <title>FachApp</title>
+    <script>
+      // Evita el parpadeo de tema: aplica el modo oscuro antes de pintar.
+      try {
+        const t = JSON.parse(localStorage.getItem('fachapp-theme') || '{}')?.state?.theme
+        const dark =
+          t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.classList.toggle('dark', dark)
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
