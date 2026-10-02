@@ -17,12 +17,52 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.check.outputs.pages_enabled }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
+      # GitHub Pages solo se puede activar a mano (Settings → Pages). Si aún no está
+      # activado, se valida y compila igualmente, pero no se intenta publicar.
+      - name: Comprobar configuración (Pages y secrets)
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HAS_URL: ${{ secrets.VITE_SUPABASE_URL != '' }}
+          HAS_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY != '' }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages")
+          if [ "$code" = "200" ]; then
+            echo "pages_enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "pages_enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=GitHub Pages no está activado::Activa Settings → Pages → Source: GitHub Actions y vuelve a lanzar este workflow."
+            {
+              echo "## ⚠️ GitHub Pages no está activado"
+              echo ""
+              echo "El código se ha validado y compilado, pero **no se ha publicado**."
+              echo ""
+              echo "1. Ve a **Settings → Pages** del repositorio."
+              echo "2. En **Build and deployment → Source** elige **GitHub Actions**."
+              echo "3. Vuelve a **Actions → Deploy a GitHub Pages → Run workflow**."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "$HAS_URL" != "true" ] || [ "$HAS_KEY" != "true" ]; then
+            echo "::warning title=Faltan secrets de Supabase::Añade VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY en Settings → Secrets and variables → Actions. Sin ellos la web se publica pero no puede conectarse."
+            {
+              echo ""
+              echo "## ⚠️ Faltan los secrets de Supabase"
+              echo ""
+              echo "Añade \`VITE_SUPABASE_URL\` y \`VITE_SUPABASE_ANON_KEY\` en **Settings → Secrets and variables → Actions**."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - run: npm ci
       - run: npm run lint
       - run: npm run test
@@ -32,13 +72,17 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_X_MOCK: ${{ vars.VITE_X_MOCK || 'false' }}
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+
+      - if: steps.check.outputs.pages_enabled == 'true'
+        uses: actions/configure-pages@v5
+      - if: steps.check.outputs.pages_enabled == 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: apps/web/dist
 
   deploy:
     needs: build
+    if: needs.build.outputs.pages_enabled == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
