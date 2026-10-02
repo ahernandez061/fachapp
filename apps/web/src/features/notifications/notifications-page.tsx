@@ -1,4 +1,5 @@
 import {
+  AtSign,
   Award,
   Bell,
   CheckCircle2,
@@ -23,6 +24,7 @@ const ICONS: Record<string, LucideIcon> = {
   follow: UserPlus,
   like: Heart,
   comment: MessageCircle,
+  mention: AtSign,
   mission_verified: CheckCircle2,
   mission_rejected: XCircle,
   badge: Award,

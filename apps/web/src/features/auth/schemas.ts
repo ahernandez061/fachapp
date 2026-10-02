@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { containsOffensive, OFFENSIVE_MESSAGE } from '@/lib/offensive'
 import { PROVINCIAS } from '@/lib/provincias'
+import { normalizeInstagram } from '@/lib/social-links'
 
 export const MIN_AGE = 14
 
@@ -83,6 +84,10 @@ export const profileSchema = z.object({
     .max(160, 'Máximo 160 caracteres')
     .refine((v) => !containsOffensive(v), OFFENSIVE_MESSAGE),
   provincia: z.enum(provinciaCodes, { error: 'Elige tu provincia' }),
+  // Usuario, @usuario o enlace de instagram.com (se guarda normalizado)
+  instagram: z
+    .string()
+    .refine((v) => !v.trim() || normalizeInstagram(v) !== null, 'Usuario de Instagram no válido'),
 })
 
 export type LoginValues = z.infer<typeof loginSchema>

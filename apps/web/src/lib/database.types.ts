@@ -1,5 +1,11 @@
 // Generado con `npm run db:types`. No editar a mano.
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   public: {
@@ -25,22 +31,22 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'attempt_votes_attempt_id_fkey'
-            columns: ['attempt_id']
-            referencedRelation: 'mission_attempts'
-            referencedColumns: ['id']
+            foreignKeyName: "attempt_votes_attempt_id_fkey"
+            columns: ["attempt_id"]
+            referencedRelation: "mission_attempts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'attempt_votes_voter_id_fkey'
-            columns: ['voter_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "attempt_votes_voter_id_fkey"
+            columns: ["voter_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'attempt_votes_voter_id_fkey'
-            columns: ['voter_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "attempt_votes_voter_id_fkey"
+            columns: ["voter_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -98,28 +104,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'blocks_blocked_id_fkey'
-            columns: ['blocked_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'blocks_blocked_id_fkey'
-            columns: ['blocked_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'blocks_blocker_id_fkey'
-            columns: ['blocker_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'blocks_blocker_id_fkey'
-            columns: ['blocker_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -147,28 +153,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'comments_post_id_fkey'
-            columns: ['post_id']
-            referencedRelation: 'post_feed'
-            referencedColumns: ['id']
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "post_feed"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'comments_post_id_fkey'
-            columns: ['post_id']
-            referencedRelation: 'posts'
-            referencedColumns: ['id']
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'comments_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'comments_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -190,28 +196,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'follows_follower_id_fkey'
-            columns: ['follower_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'follows_follower_id_fkey'
-            columns: ['follower_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'follows_following_id_fkey'
-            columns: ['following_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "follows_following_id_fkey"
+            columns: ["following_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'follows_following_id_fkey'
-            columns: ['following_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "follows_following_id_fkey"
+            columns: ["following_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -233,28 +239,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'likes_post_id_fkey'
-            columns: ['post_id']
-            referencedRelation: 'post_feed'
-            referencedColumns: ['id']
+            foreignKeyName: "likes_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "post_feed"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'likes_post_id_fkey'
-            columns: ['post_id']
-            referencedRelation: 'posts'
-            referencedColumns: ['id']
+            foreignKeyName: "likes_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'likes_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'likes_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -268,7 +274,7 @@ export type Database = {
           photo_url: string | null
           review_note: string | null
           reviewed_by: string | null
-          status: Database['public']['Enums']['attempt_status']
+          status: Database["public"]["Enums"]["attempt_status"]
           updated_at: string
           user_id: string
           verified_at: string | null
@@ -282,7 +288,7 @@ export type Database = {
           photo_url?: string | null
           review_note?: string | null
           reviewed_by?: string | null
-          status?: Database['public']['Enums']['attempt_status']
+          status?: Database["public"]["Enums"]["attempt_status"]
           updated_at?: string
           user_id: string
           verified_at?: string | null
@@ -296,47 +302,47 @@ export type Database = {
           photo_url?: string | null
           review_note?: string | null
           reviewed_by?: string | null
-          status?: Database['public']['Enums']['attempt_status']
+          status?: Database["public"]["Enums"]["attempt_status"]
           updated_at?: string
           user_id?: string
           verified_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: 'mission_attempts_mission_id_fkey'
-            columns: ['mission_id']
-            referencedRelation: 'missions'
-            referencedColumns: ['id']
+            foreignKeyName: "mission_attempts_mission_id_fkey"
+            columns: ["mission_id"]
+            referencedRelation: "missions"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'mission_attempts_mission_id_fkey'
-            columns: ['mission_id']
-            referencedRelation: 'post_feed'
-            referencedColumns: ['mission_id']
+            foreignKeyName: "mission_attempts_mission_id_fkey"
+            columns: ["mission_id"]
+            referencedRelation: "post_feed"
+            referencedColumns: ["mission_id"]
           },
           {
-            foreignKeyName: 'mission_attempts_reviewed_by_fkey'
-            columns: ['reviewed_by']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "mission_attempts_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'mission_attempts_reviewed_by_fkey'
-            columns: ['reviewed_by']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "mission_attempts_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'mission_attempts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "mission_attempts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'mission_attempts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "mission_attempts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -348,7 +354,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           description: string
-          difficulty: Database['public']['Enums']['mission_difficulty']
+          difficulty: Database["public"]["Enums"]["mission_difficulty"]
           ends_at: string | null
           featured: boolean
           id: string
@@ -356,7 +362,7 @@ export type Database = {
           rules: Json
           starts_at: string | null
           title: string
-          verification_type: Database['public']['Enums']['verification_type']
+          verification_type: Database["public"]["Enums"]["verification_type"]
         }
         Insert: {
           active?: boolean
@@ -365,7 +371,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string
-          difficulty?: Database['public']['Enums']['mission_difficulty']
+          difficulty?: Database["public"]["Enums"]["mission_difficulty"]
           ends_at?: string | null
           featured?: boolean
           id?: string
@@ -373,7 +379,7 @@ export type Database = {
           rules?: Json
           starts_at?: string | null
           title: string
-          verification_type: Database['public']['Enums']['verification_type']
+          verification_type: Database["public"]["Enums"]["verification_type"]
         }
         Update: {
           active?: boolean
@@ -382,7 +388,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           description?: string
-          difficulty?: Database['public']['Enums']['mission_difficulty']
+          difficulty?: Database["public"]["Enums"]["mission_difficulty"]
           ends_at?: string | null
           featured?: boolean
           id?: string
@@ -390,20 +396,20 @@ export type Database = {
           rules?: Json
           starts_at?: string | null
           title?: string
-          verification_type?: Database['public']['Enums']['verification_type']
+          verification_type?: Database["public"]["Enums"]["verification_type"]
         }
         Relationships: [
           {
-            foreignKeyName: 'missions_created_by_fkey'
-            columns: ['created_by']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "missions_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'missions_created_by_fkey'
-            columns: ['created_by']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "missions_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -434,16 +440,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'notifications_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'notifications_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -480,22 +486,22 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'posts_mission_attempt_id_fkey'
-            columns: ['mission_attempt_id']
-            referencedRelation: 'mission_attempts'
-            referencedColumns: ['id']
+            foreignKeyName: "posts_mission_attempt_id_fkey"
+            columns: ["mission_attempt_id"]
+            referencedRelation: "mission_attempts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'posts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'posts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -520,16 +526,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'profile_private_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "profile_private_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'profile_private_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "profile_private_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -543,6 +549,7 @@ export type Database = {
           equipped_theme: string | null
           equipped_title: string | null
           id: string
+          instagram_username: string | null
           is_admin: boolean
           onboarded: boolean
           provincia: string | null
@@ -559,6 +566,7 @@ export type Database = {
           equipped_theme?: string | null
           equipped_title?: string | null
           id: string
+          instagram_username?: string | null
           is_admin?: boolean
           onboarded?: boolean
           provincia?: string | null
@@ -575,6 +583,7 @@ export type Database = {
           equipped_theme?: string | null
           equipped_title?: string | null
           id?: string
+          instagram_username?: string | null
           is_admin?: boolean
           onboarded?: boolean
           provincia?: string | null
@@ -584,28 +593,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'profiles_equipped_frame_fkey'
-            columns: ['equipped_frame']
-            referencedRelation: 'rewards'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_equipped_frame_fkey"
+            columns: ["equipped_frame"]
+            referencedRelation: "rewards"
+            referencedColumns: ["code"]
           },
           {
-            foreignKeyName: 'profiles_equipped_theme_fkey'
-            columns: ['equipped_theme']
-            referencedRelation: 'rewards'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_equipped_theme_fkey"
+            columns: ["equipped_theme"]
+            referencedRelation: "rewards"
+            referencedColumns: ["code"]
           },
           {
-            foreignKeyName: 'profiles_equipped_title_fkey'
-            columns: ['equipped_title']
-            referencedRelation: 'rewards'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_equipped_title_fkey"
+            columns: ["equipped_title"]
+            referencedRelation: "rewards"
+            referencedColumns: ["code"]
           },
           {
-            foreignKeyName: 'profiles_provincia_fkey'
-            columns: ['provincia']
-            referencedRelation: 'provincias'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_provincia_fkey"
+            columns: ["provincia"]
+            referencedRelation: "provincias"
+            referencedColumns: ["code"]
           },
         ]
       }
@@ -648,16 +657,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'push_tokens_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "push_tokens_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'push_tokens_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "push_tokens_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -669,9 +678,9 @@ export type Database = {
           reason: string
           reporter_id: string
           resolved_by: string | null
-          status: Database['public']['Enums']['report_status']
+          status: Database["public"]["Enums"]["report_status"]
           target_id: string
-          target_type: Database['public']['Enums']['report_target']
+          target_type: Database["public"]["Enums"]["report_target"]
         }
         Insert: {
           created_at?: string
@@ -680,9 +689,9 @@ export type Database = {
           reason: string
           reporter_id: string
           resolved_by?: string | null
-          status?: Database['public']['Enums']['report_status']
+          status?: Database["public"]["Enums"]["report_status"]
           target_id: string
-          target_type: Database['public']['Enums']['report_target']
+          target_type: Database["public"]["Enums"]["report_target"]
         }
         Update: {
           created_at?: string
@@ -691,34 +700,34 @@ export type Database = {
           reason?: string
           reporter_id?: string
           resolved_by?: string | null
-          status?: Database['public']['Enums']['report_status']
+          status?: Database["public"]["Enums"]["report_status"]
           target_id?: string
-          target_type?: Database['public']['Enums']['report_target']
+          target_type?: Database["public"]["Enums"]["report_target"]
         }
         Relationships: [
           {
-            foreignKeyName: 'reports_reporter_id_fkey'
-            columns: ['reporter_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "reports_reporter_id_fkey"
+            columns: ["reporter_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'reports_reporter_id_fkey'
-            columns: ['reporter_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "reports_reporter_id_fkey"
+            columns: ["reporter_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'reports_resolved_by_fkey'
-            columns: ['resolved_by']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "reports_resolved_by_fkey"
+            columns: ["resolved_by"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'reports_resolved_by_fkey'
-            columns: ['resolved_by']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "reports_resolved_by_fkey"
+            columns: ["resolved_by"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -728,7 +737,7 @@ export type Database = {
           code: string
           cost: number
           description: string
-          kind: Database['public']['Enums']['reward_kind']
+          kind: Database["public"]["Enums"]["reward_kind"]
           name: string
           sort_order: number
         }
@@ -737,7 +746,7 @@ export type Database = {
           code: string
           cost: number
           description: string
-          kind: Database['public']['Enums']['reward_kind']
+          kind: Database["public"]["Enums"]["reward_kind"]
           name: string
           sort_order?: number
         }
@@ -746,7 +755,7 @@ export type Database = {
           code?: string
           cost?: number
           description?: string
-          kind?: Database['public']['Enums']['reward_kind']
+          kind?: Database["public"]["Enums"]["reward_kind"]
           name?: string
           sort_order?: number
         }
@@ -770,22 +779,22 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'user_badges_badge_code_fkey'
-            columns: ['badge_code']
-            referencedRelation: 'badges'
-            referencedColumns: ['code']
+            foreignKeyName: "user_badges_badge_code_fkey"
+            columns: ["badge_code"]
+            referencedRelation: "badges"
+            referencedColumns: ["code"]
           },
           {
-            foreignKeyName: 'user_badges_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "user_badges_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'user_badges_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "user_badges_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -807,22 +816,22 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'user_rewards_reward_code_fkey'
-            columns: ['reward_code']
-            referencedRelation: 'rewards'
-            referencedColumns: ['code']
+            foreignKeyName: "user_rewards_reward_code_fkey"
+            columns: ["reward_code"]
+            referencedRelation: "rewards"
+            referencedColumns: ["code"]
           },
           {
-            foreignKeyName: 'user_rewards_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "user_rewards_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'user_rewards_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "user_rewards_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -859,16 +868,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'x_accounts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "x_accounts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'x_accounts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "x_accounts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -896,16 +905,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'x_api_calls_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "x_api_calls_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'x_api_calls_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "x_api_calls_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -933,16 +942,16 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'x_oauth_states_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "x_oauth_states_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'x_oauth_states_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "x_oauth_states_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -962,10 +971,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'profiles_provincia_fkey'
-            columns: ['provincia']
-            referencedRelation: 'provincias'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_provincia_fkey"
+            columns: ["provincia"]
+            referencedRelation: "provincias"
+            referencedColumns: ["code"]
           },
         ]
       }
@@ -985,7 +994,9 @@ export type Database = {
           mission_id: string | null
           mission_points: number | null
           mission_title: string | null
-          mission_verification_type: Database['public']['Enums']['verification_type'] | null
+          mission_verification_type:
+            | Database["public"]["Enums"]["verification_type"]
+            | null
           provincia: string | null
           text: string | null
           user_id: string | null
@@ -993,28 +1004,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'posts_mission_attempt_id_fkey'
-            columns: ['mission_attempt_id']
-            referencedRelation: 'mission_attempts'
-            referencedColumns: ['id']
+            foreignKeyName: "posts_mission_attempt_id_fkey"
+            columns: ["mission_attempt_id"]
+            referencedRelation: "mission_attempts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'posts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'leaderboard'
-            referencedColumns: ['user_id']
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "leaderboard"
+            referencedColumns: ["user_id"]
           },
           {
-            foreignKeyName: 'posts_user_id_fkey'
-            columns: ['user_id']
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'profiles_provincia_fkey'
-            columns: ['provincia']
-            referencedRelation: 'provincias'
-            referencedColumns: ['code']
+            foreignKeyName: "profiles_provincia_fkey"
+            columns: ["provincia"]
+            referencedRelation: "provincias"
+            referencedColumns: ["code"]
           },
         ]
       }
@@ -1055,6 +1066,7 @@ export type Database = {
           equipped_theme: string | null
           equipped_title: string | null
           id: string
+          instagram_username: string | null
           is_admin: boolean
           onboarded: boolean
           provincia: string | null
@@ -1063,8 +1075,8 @@ export type Database = {
           x_username: string | null
         }
         SetofOptions: {
-          from: '*'
-          to: 'profiles'
+          from: "*"
+          to: "profiles"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -1074,12 +1086,13 @@ export type Database = {
       equip_reward: {
         Args: {
           p_code: string
-          p_kind: Database['public']['Enums']['reward_kind']
+          p_kind: Database["public"]["Enums"]["reward_kind"]
         }
         Returns: undefined
       }
       export_my_data: { Args: never; Returns: Json }
       extract_hashtags: { Args: { p_text: string }; Returns: string[] }
+      extract_mentions: { Args: { p_text: string }; Returns: string[] }
       get_attempts_to_validate: {
         Args: { p_limit?: number }
         Returns: {
@@ -1093,7 +1106,7 @@ export type Database = {
           note: string
           photo_url: string
           rejections: number
-          verification_type: Database['public']['Enums']['verification_type']
+          verification_type: Database["public"]["Enums"]["verification_type"]
         }[]
       }
       get_feed: {
@@ -1113,15 +1126,17 @@ export type Database = {
           mission_id: string | null
           mission_points: number | null
           mission_title: string | null
-          mission_verification_type: Database['public']['Enums']['verification_type'] | null
+          mission_verification_type:
+            | Database["public"]["Enums"]["verification_type"]
+            | null
           provincia: string | null
           text: string | null
           user_id: string | null
           username: string | null
         }[]
         SetofOptions: {
-          from: '*'
-          to: 'post_feed'
+          from: "*"
+          to: "post_feed"
           isOneToOne: false
           isSetofReturn: true
         }
@@ -1157,15 +1172,17 @@ export type Database = {
           mission_id: string | null
           mission_points: number | null
           mission_title: string | null
-          mission_verification_type: Database['public']['Enums']['verification_type'] | null
+          mission_verification_type:
+            | Database["public"]["Enums"]["verification_type"]
+            | null
           provincia: string | null
           text: string | null
           user_id: string | null
           username: string | null
         }[]
         SetofOptions: {
-          from: '*'
-          to: 'post_feed'
+          from: "*"
+          to: "post_feed"
           isOneToOne: false
           isSetofReturn: true
         }
@@ -1206,15 +1223,17 @@ export type Database = {
           mission_id: string | null
           mission_points: number | null
           mission_title: string | null
-          mission_verification_type: Database['public']['Enums']['verification_type'] | null
+          mission_verification_type:
+            | Database["public"]["Enums"]["verification_type"]
+            | null
           provincia: string | null
           text: string | null
           user_id: string | null
           username: string | null
         }[]
         SetofOptions: {
-          from: '*'
-          to: 'post_feed'
+          from: "*"
+          to: "post_feed"
           isOneToOne: false
           isSetofReturn: true
         }
@@ -1244,14 +1263,14 @@ export type Database = {
           photo_url: string | null
           review_note: string | null
           reviewed_by: string | null
-          status: Database['public']['Enums']['attempt_status']
+          status: Database["public"]["Enums"]["attempt_status"]
           updated_at: string
           user_id: string
           verified_at: string | null
         }
         SetofOptions: {
-          from: '*'
-          to: 'mission_attempts'
+          from: "*"
+          to: "mission_attempts"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -1267,14 +1286,14 @@ export type Database = {
           photo_url: string | null
           review_note: string | null
           reviewed_by: string | null
-          status: Database['public']['Enums']['attempt_status']
+          status: Database["public"]["Enums"]["attempt_status"]
           updated_at: string
           user_id: string
           verified_at: string | null
         }
         SetofOptions: {
-          from: '*'
-          to: 'mission_attempts'
+          from: "*"
+          to: "mission_attempts"
           isOneToOne: true
           isSetofReturn: false
         }
@@ -1285,18 +1304,18 @@ export type Database = {
         Returns: {
           approvals: number
           rejections: number
-          status: Database['public']['Enums']['attempt_status']
+          status: Database["public"]["Enums"]["attempt_status"]
         }[]
       }
       week_start: { Args: never; Returns: string }
     }
     Enums: {
-      attempt_status: 'pending' | 'verified' | 'rejected'
-      mission_difficulty: 'facil' | 'media' | 'dificil'
-      report_status: 'open' | 'resolved' | 'dismissed'
-      report_target: 'post' | 'comment' | 'user'
-      reward_kind: 'theme' | 'frame' | 'title' | 'badge'
-      verification_type: 'x_auto' | 'photo' | 'manual'
+      attempt_status: "pending" | "verified" | "rejected"
+      mission_difficulty: "facil" | "media" | "dificil"
+      report_status: "open" | "resolved" | "dismissed"
+      report_target: "post" | "comment" | "user"
+      reward_kind: "theme" | "frame" | "title" | "badge"
+      verification_type: "x_auto" | "photo" | "manual"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1304,31 +1323,33 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
-    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -1337,22 +1358,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -1361,22 +1383,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -1385,45 +1408,47 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    keyof DefaultSchema['Enums'] | { schema: keyof DatabaseWithoutInternals },
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
-    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    keyof DefaultSchema['CompositeTypes'] | { schema: keyof DatabaseWithoutInternals },
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
-    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
   public: {
     Enums: {
-      attempt_status: ['pending', 'verified', 'rejected'],
-      mission_difficulty: ['facil', 'media', 'dificil'],
-      report_status: ['open', 'resolved', 'dismissed'],
-      report_target: ['post', 'comment', 'user'],
-      reward_kind: ['theme', 'frame', 'title', 'badge'],
-      verification_type: ['x_auto', 'photo', 'manual'],
+      attempt_status: ["pending", "verified", "rejected"],
+      mission_difficulty: ["facil", "media", "dificil"],
+      report_status: ["open", "resolved", "dismissed"],
+      report_target: ["post", "comment", "user"],
+      reward_kind: ["theme", "frame", "title", "badge"],
+      verification_type: ["x_auto", "photo", "manual"],
     },
   },
 } as const

@@ -42,6 +42,8 @@ additional_redirect_urls = ["http://localhost:5180/fachapp/", "https://*.github.
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 enable_signup = true
+# Vincular varias identidades (Google, Apple, X) a la misma cuenta.
+enable_manual_linking = true
 
 [auth.email]
 enable_signup = true
@@ -54,6 +56,11 @@ enabled = false
 client_id = "env(SUPABASE_AUTH_GOOGLE_CLIENT_ID)"
 secret = "env(SUPABASE_AUTH_GOOGLE_SECRET)"
 skip_nonce_check = true
+
+[auth.external.apple]
+enabled = false
+client_id = "env(SUPABASE_AUTH_APPLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_APPLE_SECRET)"
 
 [auth.external.twitter]
 enabled = false

@@ -26,7 +26,12 @@ export function EditProfilePage() {
   const form = useForm<ProfileValues>({
     resolver: zodResolver(profileSchema),
     values: me
-      ? { display_name: me.display_name, bio: me.bio, provincia: me.provincia ?? '' }
+      ? {
+          display_name: me.display_name,
+          bio: me.bio,
+          provincia: me.provincia ?? '',
+          instagram: me.instagram_username ?? '',
+        }
       : undefined,
   })
   const { errors } = form.formState
@@ -71,6 +76,13 @@ export function EditProfilePage() {
         </FormField>
         <FormField label="Biografía" error={errors.bio} hint={`${bio.length}/160`}>
           <Textarea maxLength={160} {...form.register('bio')} />
+        </FormField>
+        <FormField
+          label="Instagram (opcional)"
+          error={errors.instagram}
+          hint="Tu usuario o el enlace a tu perfil. Aparecerá en tu perfil de FachApp."
+        >
+          <Input placeholder="@tu_usuario" autoCapitalize="none" {...form.register('instagram')} />
         </FormField>
         <FormField label="Provincia" error={errors.provincia}>
           <NativeSelect {...form.register('provincia')}>

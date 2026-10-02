@@ -1,4 +1,4 @@
-import { Flag, Heart, MessageCircle, MoreHorizontal, Target, Trash2 } from 'lucide-react'
+import { Flag, Heart, MessageCircle, MoreHorizontal, Share2, Target, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
@@ -21,6 +21,8 @@ import { errorMessage } from '@/lib/errors'
 import { formatDateTime, formatNumber, formatRelative } from '@/lib/i18n'
 import { provinciaName } from '@/lib/provincias'
 import type { FeedPost } from '@/lib/types'
+import { postUrl, share } from '@/lib/social-links'
+import { useImageUrl } from '@/lib/use-image-url'
 import { cn } from '@/lib/utils'
 import { useDeletePost, useToggleLike } from './api'
 
@@ -31,6 +33,23 @@ export function PostCard({ post }: { post: FeedPost }) {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [reporting, setReporting] = useState(false)
   const [viewer, setViewer] = useState<number | null>(null)
+  const { url: firstImage } = useImageUrl(post.images?.[0])
+
+  // Hoja de compartir del sistema (en el móvil: Instagram, WhatsApp…); si no hay, copia el enlace.
+  async function onShare() {
+    const who = post.display_name || post.username
+    const r = await share({
+      title: post.mission_title
+        ? `${who} completó «${post.mission_title}» en FachApp`
+        : `${who} en FachApp`,
+      text: post.text || 'Mira esto en FachApp 🇪🇸',
+      url: postUrl(post.id!),
+      imageUrl: firstImage,
+    })
+    if (r === 'copied') toast.success('Enlace copiado')
+    if (r === 'unsupported') toast.error('No se ha podido compartir')
+  }
+
   const toggleLike = () => like.mutate(post, { onError: (e) => toast.error(errorMessage(e)) })
   const isMine = me?.id === post.user_id
   const canDelete = isMine || me?.is_admin
@@ -121,6 +140,15 @@ export function PostCard({ post }: { post: FeedPost }) {
           <Link to={`/p/${post.id}`} aria-label={`Comentarios (${post.comment_count ?? 0})`}>
             <MessageCircle /> {formatNumber(post.comment_count ?? 0)}
           </Link>
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="ml-auto"
+          onClick={onShare}
+          aria-label="Compartir"
+        >
+          <Share2 />
         </Button>
       </footer>
 

@@ -130,6 +130,12 @@ services:
       GOTRUE_EXTERNAL_X_CLIENT_ID: ${X_CLIENT_ID:-}
       GOTRUE_EXTERNAL_X_SECRET: ${X_CLIENT_SECRET:-}
       GOTRUE_EXTERNAL_X_REDIRECT_URI: ${SUPABASE_PUBLIC_URL}/auth/v1/callback
+      GOTRUE_EXTERNAL_APPLE_ENABLED: ${APPLE_ENABLED:-false}
+      GOTRUE_EXTERNAL_APPLE_CLIENT_ID: ${APPLE_CLIENT_ID:-}
+      GOTRUE_EXTERNAL_APPLE_SECRET: ${APPLE_SECRET:-}
+      GOTRUE_EXTERNAL_APPLE_REDIRECT_URI: ${SUPABASE_PUBLIC_URL}/auth/v1/callback
+      # Permite vincular Google/Apple/X a una cuenta ya creada (Ajustes → Cuentas vinculadas).
+      GOTRUE_SECURITY_MANUAL_LINKING_ENABLED: 'true'
 
   mail:
     image: axllent/mailpit:v1.27

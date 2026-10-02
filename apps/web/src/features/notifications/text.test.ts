@@ -28,6 +28,15 @@ describe('notificationText', () => {
     ).toBe('Tu prueba de “Ruta” no se ha aceptado: foto borrosa')
   })
 
+  it('mención', () => {
+    expect(
+      notificationText({
+        type: 'mention',
+        payload: { actor_name: 'Pablo', excerpt: 'Mira esto @lucia_sev', post_id: 'p9' },
+      }),
+    ).toEqual({ title: 'Pablo te ha mencionado: “Mira esto @lucia_sev”', href: '/p/p9' })
+  })
+
   it('tipo desconocido', () => {
     expect(notificationText({ type: 'otro', payload: {} }).href).toBe('/notificaciones')
   })

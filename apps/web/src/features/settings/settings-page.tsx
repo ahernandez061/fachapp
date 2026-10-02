@@ -25,6 +25,8 @@ import { XIcon } from '@/features/auth/oauth-buttons'
 import { signOut, useMyProfile, useSession } from '@/features/auth/session'
 import { useMyBlocks, useToggleBlock } from '@/features/social/api'
 import { useDisconnectX } from '@/features/x/api'
+import { InviteFriends } from './invite-friends'
+import { LinkedAccounts } from './linked-accounts'
 import { errorMessage } from '@/lib/errors'
 import { deleteAllUserFiles } from '@/lib/images'
 import { supabase } from '@/lib/supabase'
@@ -151,10 +153,13 @@ export function SettingsPage() {
         </CardContent>
       </Card>
 
+      <LinkedAccounts />
+      <InviteFriends />
+
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
-            <XIcon /> Cuenta de X
+            <XIcon /> X para verificar misiones
           </CardTitle>
         </CardHeader>
         <CardContent>

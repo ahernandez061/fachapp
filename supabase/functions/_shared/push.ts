@@ -28,6 +28,12 @@ export function pushMessage(n: PushNotification): PushMessage {
         body: `${actor}: ${str(p.comment)}`,
         link: `/p/${str(p.post_id)}`,
       }
+    case 'mention':
+      return {
+        title: 'Te han mencionado',
+        body: `${actor}: ${str(p.excerpt)}`,
+        link: `/p/${str(p.post_id)}`,
+      }
     case 'mission_verified':
       return {
         title: '¡Misión completada! 🎉',

@@ -16,6 +16,11 @@ export function notificationText(n: Pick<Notification, 'type' | 'payload'>): {
       return { title: `A ${actor} le gusta tu publicación`, href: `/p/${p.post_id}` }
     case 'comment':
       return { title: `${actor} ha comentado: “${p.comment ?? ''}”`, href: `/p/${p.post_id}` }
+    case 'mention':
+      return {
+        title: `${actor} te ha mencionado: “${p.excerpt ?? ''}”`,
+        href: `/p/${p.post_id}`,
+      }
     case 'mission_verified':
       return {
         title: `¡Misión completada! “${p.mission_title}” (+${p.points} pts)`,

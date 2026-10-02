@@ -130,6 +130,9 @@ function setup() {
       GOOGLE_ENABLED: 'false',
       GOOGLE_CLIENT_ID: '',
       GOOGLE_SECRET: '',
+      APPLE_ENABLED: 'false',
+      APPLE_CLIENT_ID: '',
+      APPLE_SECRET: '',
     }
     writeFileSync(
       envFile,

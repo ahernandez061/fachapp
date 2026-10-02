@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { myProfileKey, useUserId } from '@/features/auth/session'
 import { uploadImage } from '@/lib/images'
+import { normalizeInstagram } from '@/lib/social-links'
 import { supabase } from '@/lib/supabase'
 import type { ProfileValues } from '@/features/auth/schemas'
 import type { Database } from '@/lib/database.types'
@@ -96,6 +97,7 @@ export function useUpdateProfile() {
         display_name: v.display_name,
         bio: v.bio,
         provincia: v.provincia,
+        instagram_username: normalizeInstagram(v.instagram),
       }
       if (v.avatar) patch.avatar_url = await uploadImage('avatars', uid!, v.avatar, 512)
       const { error } = await supabase.from('profiles').update(patch).eq('id', uid!)

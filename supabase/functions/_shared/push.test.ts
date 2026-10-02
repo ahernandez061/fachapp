@@ -25,6 +25,15 @@ describe('pushMessage', () => {
     )
   })
 
+  it('mención', () => {
+    expect(
+      pushMessage({
+        type: 'mention',
+        payload: { actor_name: 'Pablo', excerpt: 'Hola @lucia_sev', post_id: 'p9' },
+      }),
+    ).toEqual({ title: 'Te han mencionado', body: 'Pablo: Hola @lucia_sev', link: '/p/p9' })
+  })
+
   it('payload vacío o tipo desconocido', () => {
     expect(pushMessage({ type: 'raro', payload: null }).link).toBe('/notificaciones')
   })

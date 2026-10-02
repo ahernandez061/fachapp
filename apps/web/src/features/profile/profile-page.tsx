@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useMyProfile } from '@/features/auth/session'
-import { XIcon } from '@/features/auth/oauth-buttons'
+import { InstagramIcon, XIcon } from '@/features/auth/oauth-buttons'
 import { useUserPosts } from '@/features/feed/api'
 import { PostCard } from '@/features/feed/post-card'
 import { useMyBlocks, useToggleBlock } from '@/features/social/api'
@@ -38,6 +38,7 @@ import { errorMessage } from '@/lib/errors'
 import { formatDate, formatNumber } from '@/lib/i18n'
 import { levelProgress, levelTitle } from '@/lib/levels'
 import { provinciaName } from '@/lib/provincias'
+import { instagramUrl } from '@/lib/social-links'
 import {
   useAllBadges,
   useCompletedMissions,
@@ -135,6 +136,17 @@ export function ProfilePage() {
           <p className="text-sm text-muted-foreground">
             @{p.username}
             {p.provincia && ` · ${provinciaName(p.provincia)}`}
+            {p.instagram_username && (
+              <a
+                href={instagramUrl(p.instagram_username)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1 inline-flex items-center gap-1 hover:text-foreground hover:underline"
+                aria-label={`Instagram de ${p.display_name || p.username}: @${p.instagram_username}`}
+              >
+                · <InstagramIcon className="size-3" /> @{p.instagram_username}
+              </a>
+            )}
             {p.x_username && (
               <span className="ml-1 inline-flex items-center gap-1">
                 · <XIcon className="size-3" /> @{p.x_username}
