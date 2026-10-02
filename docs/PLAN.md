@@ -90,6 +90,15 @@ Pendiente (requiere cuentas o un Mac):
 - Admins: botón "Nuevo reto" en Misiones y subida de foto de portada.
 - Tests: 86 unitarios y 25 E2E (incluye votación de 5 usuarios, premios y creación de retos).
 
+## Extra — Integraciones (Apple, Google/Gmail, Instagram) y menciones ✅
+
+- Login con **Apple** (además de Google y X) y **cuentas vinculadas** en Ajustes (`linkIdentity` / `unlinkIdentity`, manual linking activado).
+- **Instagram**: usuario enlazado en el perfil y **compartir** publicaciones con la hoja del sistema (Web Share API en la web, `@capacitor/share` en la app). Instagram no permite login para cuentas personales desde diciembre de 2024.
+- **Invitar amigos** por Gmail, por correo (`mailto:`) o con enlace.
+- **@menciones** con notificación (migraciones `20261002000100`/`000200`, máx. 5 por texto).
+- Deploy: el workflow detecta si GitHub Pages no está activado o faltan los secrets y lo explica en el resumen, en vez de fallar.
+- Tests: 105 unitarios y 33 E2E.
+
 ---
 
 ## Decisiones tomadas (revisables)

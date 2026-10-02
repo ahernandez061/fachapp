@@ -13,14 +13,14 @@ Más capturas en [`docs/capturas`](docs/capturas). Plan y estado por fases en [`
 - **Retos de temática española** (31 de serie, en [`scripts/missions-data.mjs`](scripts/missions-data.mjs)): foto con la bandera (Reto de la semana), selfie con alguien del PP, #España y #12deOctubre en X, desfile del 12 de Octubre, Día de la Constitución, La Roja, Camino de Santiago, toro de Osborne, Patrimonio de la Humanidad, tortilla, paella, jamón, fiestas del pueblo, lotería de Navidad… Verificación por `photo`, `manual` o `x_auto` (automática con X). Los admins crean retos desde la app, con foto de portada.
 - **Validación por la comunidad**: las pruebas pendientes se enseñan a usuarios al azar en **Validar retos**. Con **5 votos "Reto superado"** se da por superado y con **10 "No vale"**, por fallido. Los admins pueden decidir directamente.
 - **Premios**: los puntos se canjean por **colores de la app**, **marcos de avatar**, **títulos** e **insignias exclusivas**. Canjear no resta puntos del ranking.
-- **Cuentas**: email + contraseña, enlace mágico, Google y X (OAuth 2.0). Onboarding con usuario, provincia y **edad mínima de 14 años** (LOPDGDD).
+- **Cuentas**: email + contraseña, enlace mágico, **Google (Gmail)**, **Apple** y **X** (OAuth 2.0 + PKCE). En _Ajustes → Cuentas vinculadas_ se pueden vincular varias a la misma cuenta. Onboarding con usuario, provincia y **edad mínima de 14 años** (LOPDGDD).
 - **Integración con X** solo desde Edge Functions: consentimiento RGPD, OAuth 2.0 + PKCE, tokens cifrados (AES-GCM), evaluador de reglas con tests, **caché de 15 min** y **límite diario** por usuario, **modo mock**.
-- **Red social**: seguir, feed _Siguiendo_/_Descubrir_ con scroll infinito, publicaciones con **hasta 4 fotos en carrusel**, **doble toque para dar me gusta**, visor de fotos a pantalla completa, **galería en cada perfil**, comentarios, **#hashtags y @menciones**, **Explorar** (fotos en tendencia, hashtags del momento, gente) y **notificaciones en tiempo real**.
+- **Red social**: seguir, feed _Siguiendo_/_Descubrir_, publicaciones con **hasta 4 fotos en carrusel**, **doble toque para dar me gusta**, visor a pantalla completa, **galería en cada perfil**, comentarios, **#hashtags**, **@menciones con notificación** (máx. 5 por texto), **compartir** (hoja de compartir del sistema → Instagram, WhatsApp…; si no hay, copia el enlace), **invitar amigos por Gmail** o correo, **Instagram enlazado en el perfil**, **Explorar** y **notificaciones en tiempo real** (y push en móvil).
 - **Gamificación**: puntos, niveles, 15 insignias SVG propias (Paparazzi, Croquetero, Árbitro…), ranking global / semanal / amigos / provincia.
 - **Moderación**: reportar, bloquear, filtro de lenguaje ofensivo (cliente + BD), normas de la comunidad.
 - **Panel admin**: pruebas pendientes, misiones (con portada y Reto de la semana), reportes y usuarios (dar o quitar admin).
 - **RGPD**: exportar mis datos (JSON), borrar cuenta, desconectar X, política de privacidad. Sin cookies de analítica → sin banner.
-- **Calidad**: PWA instalable, modo claro/oscuro, WCAG AA (axe), Lighthouse > 90, **86 tests unitarios y 25 E2E** que GitHub Actions ejecuta en cada push.
+- **Calidad**: PWA instalable, modo claro/oscuro, WCAG AA (axe), Lighthouse > 90, **105 tests unitarios y 33 E2E** que GitHub Actions ejecuta en cada push.
 
 ## Qué falta (fases pendientes)
 
@@ -29,7 +29,7 @@ Todo el código de las fases 0-7 está hecho y probado. Lo pendiente depende de 
 | Pendiente                                             | Qué hace falta                                                           | Dónde                                                                        |
 | ----------------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
 | **Publicar la web para tus amigos**                   | Proyecto de Supabase en la nube + activar GitHub Pages + 2 secrets       | [Publicar la versión web](#publicar-la-versión-web-para-probarla-con-amigos) |
-| Login con Google                                      | Credenciales OAuth en Google Cloud                                       | [§3](#3-login-con-google)                                                    |
+| Login con Google y Apple                              | Credenciales OAuth en Google Cloud y en Apple Developer (99 €/año)       | [§3](#3-login-con-google-y-apple)                                            |
 | Misiones de X con datos reales (ahora en modo prueba) | App en developer.x.com (leer posts es de pago)                           | [§4](#4-app-de-x-developerxcom)                                              |
 | Push reales en el móvil                               | Proyecto de Firebase                                                     | [§5](#5-app-móvil-capacitor)                                                 |
 | App en Google Play / App Store (Fase 7)               | Firmar el AAB; iOS necesita un Mac con Xcode                             | [§5](#5-app-móvil-capacitor)                                                 |
@@ -178,11 +178,27 @@ URL final: **https://ahernandez061.github.io/fachapp/** (repo `ahernandez061/fac
 7. Hazte admin: en **SQL Editor** `update public.profiles set is_admin = true where username = 'tu_usuario';`
 8. Copia _Project URL_ y _anon public key_ (**Project Settings → API**) a los GitHub Secrets.
 
-### 3. Login con Google
+### 3. Login con Google y Apple
+
+**Google (Gmail)**
 
 1. https://console.cloud.google.com → **APIs y servicios → Pantalla de consentimiento OAuth** (externa, nombre FachApp, dominio `github.io`).
 2. **Credenciales → Crear ID de cliente OAuth → Aplicación web**. _URI de redirección autorizada_: `https://<proyecto>.supabase.co/auth/v1/callback`.
 3. En Supabase, **Authentication → Providers → Google**: pega _Client ID_ y _Client secret_.
+
+**Apple** ("Iniciar sesión con Apple"; necesita una cuenta de Apple Developer de pago)
+
+1. https://developer.apple.com → _Certificates, Identifiers & Profiles_ → **Identifiers** → crea un **App ID** con la capacidad _Sign In with Apple_.
+2. Crea un **Services ID** (será el _Client ID_), activa _Sign In with Apple_ y configura:
+   - _Domains_: `<proyecto>.supabase.co`
+   - _Return URLs_: `https://<proyecto>.supabase.co/auth/v1/callback`
+3. **Keys** → crea una clave con _Sign In with Apple_ y descarga el fichero `.p8`.
+4. En Supabase → _Authentication → Providers → Apple_: pega el _Services ID_ y genera el secreto con la clave `.p8`, el _Key ID_ y tu _Team ID_ (Supabase tiene un generador en la propia pantalla). El secreto caduca a los 6 meses: renuévalo.
+5. En local: pon `APPLE_ENABLED=true`, `APPLE_CLIENT_ID` y `APPLE_SECRET` en `supabase/docker/.env` y ejecuta `npm run sb:start`.
+
+**Vincular cuentas**: para que un usuario pueda añadir Google/Apple/X a su cuenta desde _Ajustes → Cuentas vinculadas_, activa en Supabase → _Authentication → Sign In / Providers_ la opción **Allow manual linking** (en local ya está activada).
+
+**Instagram**: Instagram no ofrece inicio de sesión para cuentas personales (cerró la _Basic Display API_ en diciembre de 2024; su API actual solo sirve para cuentas profesionales). Por eso FachApp guarda tu **usuario de Instagram** para enlazarlo desde tu perfil y permite **compartir** publicaciones: en el móvil, la hoja de compartir del sistema ofrece Instagram (Historias, Feed o Mensajes) con la foto adjunta.
 
 ### 4. App de X (developer.x.com)
 

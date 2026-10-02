@@ -1,5 +1,14 @@
 # Notas de sesión
 
+## 2026-10-02: Pipeline de despliegue, Apple/Google/Instagram y menciones
+
+- El fallo de GitHub era el deploy (GitHub Pages sin activar). Ahora el workflow lo detecta y explica cómo activarlo en el resumen; el CI ya estaba en verde.
+- Login con Apple, cuentas vinculadas en Ajustes, Instagram en el perfil, compartir publicaciones (Instagram vía hoja del sistema), invitar por Gmail, @menciones con notificación.
+- Corregido un fallo que impedía publicar posts libres (trigger de menciones).
+- 105 tests unitarios y 33 E2E en verde.
+
+**Pendiente del usuario**: activar Pages (Settings → Pages → GitHub Actions), Supabase en la nube y secrets; credenciales de Google/Apple si se quieren esos logins.
+
 ## 2026-10-01 (final): España, validación comunitaria, premios y push a GitHub
 
 **Hecho**
